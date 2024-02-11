@@ -1,10 +1,10 @@
-[user]
-	name = 
-	email = 
-	signingkey = 
-
 [alias]
 	a = add
+
+	# deletion of merged branches using func() (through bang operator emulation); unforced
+	clean-branches = "!func() { git branch --merged | grep -v \"main\\|master\" | xargs git branch -d; }; func"
+	# forced behavior achieved through '-D' option
+	force-clean-branches = 	"!func() { git branch --merged | grep -v \"main\\|master\" | xargs git branch -D; }; func"
 
 	cm = commit -m
 	# commit w/ message and signature
