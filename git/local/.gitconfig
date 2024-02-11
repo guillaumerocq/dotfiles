@@ -1,0 +1,25 @@
+[user]
+	name = 
+	email = 
+	signingkey = 
+
+[alias]
+	a = add
+
+	cm = commit -m
+	# commit w/ message and signature
+	cms = commit -m -S
+	cmv = commit -v
+
+	co = checkout
+	cob = checkout -b
+
+	di = diff
+	dis = diff --stat
+	dic = diff --cached
+
+[color]
+	ui = true
+
+[core]
+	editor = vim
