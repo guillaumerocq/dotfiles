@@ -1,9 +1,0 @@
-### .gitignore core config ###
-# Logs
-error_log
-*.log
-**/logs
-**/var/log
-
-# System related
-*.env
