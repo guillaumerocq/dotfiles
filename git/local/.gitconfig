@@ -6,9 +6,14 @@
 	# forced behavior achieved through '-D' option
 	force-clean-branches = 	"!func() { git branch --merged | grep -v \"main\\|master\" | xargs git branch -D; }; func"
 
-	cm = commit -m
-	# commit w/ message and signature
-	cms = commit -m -S
+	cm = commit
+	# signed version
+	cms = commit -S
+
+	cma = commit --amend
+	# signed version
+	cmas = commit --amend -S
+
 	cmv = commit -v
 
 	co = checkout
