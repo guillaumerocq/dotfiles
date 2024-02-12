@@ -1,30 +1,55 @@
 [alias]
-	a = add
+  a = add
 
-	# deletion of merged branches using func() (through bang operator emulation); unforced
-	clean-branches = "!func() { git branch --merged | grep -v \"main\\|master\" | xargs git branch -d; }; func"
-	# forced behavior achieved through '-D' option
-	force-clean-branches = 	"!func() { git branch --merged | grep -v \"main\\|master\" | xargs git branch -D; }; func"
+  ## Local branches ##
+  # deletion of merged branches through bang operator emulation
+  # a deletion is made only if, at least, a branch exists
+  clean-lbranches = "!f() { \
+    git branch --merged | \
+    grep -Ewv '^\\*|main|master|develop' | \
+    xargs -n1 -r git branch -d; \
+  }; f"
 
-	cm = commit
+  # force deletion
+  # /!\ beware, unmerged branches will be deleted /!\
+  force-clean-lbranches = "!f() { \
+    git branch --merged | \
+    grep -Ewv '^\\*|main|master|develop' | \
+    xargs -n1 -r git branch -D; \
+  }; f"
+
+  ## Remote branches ##
+  ## cleaning and syncing local cache
+  clean-rbranches = "!f() { \
+    git branch -r --merged | \
+    grep -Ewv 'main|master|develop' | \
+    sed 's/origin\\///' | \
+    xargs -n1 -r git push --delete origin && \
+    git fetch origin --prune; \
+  }; f"
+
+  cm = commit
+  # signed version
+  cms = commit -S
+
+  cma = commit --amend
 	# signed version
-	cms = commit -S
+  cmas = commit -S --amend
 
-	cma = commit --amend
-	# signed version
-	cmas = commit --amend -S
+  cmv = commit -v
 
-	cmv = commit -v
+  co = checkout
+  cob = checkout -b
 
-	co = checkout
-	cob = checkout -b
-
-	di = diff
-	dis = diff --stat
-	dic = diff --cached
+  di = diff
+  dis = diff --stat
+  dic = diff --cached
 
 [color]
-	ui = true
+  ui = true
+
+[commit]
+  template = ~/.git_message
 
 [core]
-	editor = vim
+  editor = vim
